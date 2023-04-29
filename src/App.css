@@ -19,10 +19,57 @@
     align-items: left;
     gap: 10px;
     margin-bottom: 20px;
+    color: black;
 }
 
 .name,
 .phone {
     display: flex;
     gap: 10px;
+}
+
+button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0062cc;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: gray;
+}
+
+li button {
+    position: absolute;
+    top: 0;
+    right: -4em;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+li button:hover {
+    background-color: #c82333;
 }

@@ -9,7 +9,7 @@
       <ul>
         {contacts.map((contact) => (
           <li key={contact.id}>
-            {contact.name} - {contact.number}
+            {contact.name} : {contact.number}
             <button onClick={() => handleDeleteClick(contact.id)}>Delete</button>
           </li>
         ))}
