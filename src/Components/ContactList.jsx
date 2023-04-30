@@ -1,31 +1,30 @@
-  import PropTypes from 'prop-types';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-  function ContactList({ contacts, onDeleteContact }) {
-    const handleDeleteClick = (id) => {
-      onDeleteContact(id);
-    };
+class ContactList extends Component {
+  handleDeleteClick = (id) => {
+    this.props.onDeleteContact(id);
+  };
+
+  render() {
+    const { contacts } = this.props;
 
     return (
       <ul>
         {contacts.map((contact) => (
           <li key={contact.id}>
             {contact.name} : {contact.number}
-            <button onClick={() => handleDeleteClick(contact.id)}>Delete</button>
+            <button onClick={() => this.handleDeleteClick(contact.id)}>Delete</button>
           </li>
         ))}
       </ul>
     );
   }
+}
 
-  ContactList.propTypes = {
-    contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    onDeleteContact: PropTypes.func.isRequired,
-  };
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
+};
 
-  export default ContactList;
+export default ContactList;

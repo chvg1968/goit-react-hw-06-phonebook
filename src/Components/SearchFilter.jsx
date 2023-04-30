@@ -1,14 +1,19 @@
-import PropTypes from 'prop-types'; 
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-function SearchFilter({ value, onChange }) {
-  return (
-    <input
-      type="text"
-      placeholder="Find contacts"
-      value={value}
-      onChange={onChange}
-    />
-  );
+class SearchFilter extends Component {
+  render() {
+    const { value, onChange } = this.props;
+    
+    return (
+      <input
+        type="text"
+        placeholder="Find contacts"
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
 }
 
 SearchFilter.propTypes = {
@@ -16,4 +21,4 @@ SearchFilter.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default SearchFilter; 
+export default SearchFilter;
