@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ContactForm from './ContactForm';
+=======
+import { useState } from 'react';
+import data from './data.json';
+import ContactForm from './ContactForm'; 
+>>>>>>> ede4b0167d01a67d2041bb646530d95a698c6222
 import SearchFilter from './SearchFilter';
 import ContactList from './ContactList';
 import data from './data.json';
