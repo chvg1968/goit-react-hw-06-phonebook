@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import data from './data.json';
 import ContactForm from './ContactForm'; 
 import SearchFilter from './SearchFilter';
