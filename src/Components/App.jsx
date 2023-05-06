@@ -11,16 +11,29 @@ class App extends Component {
     super(props);
 
     this.state = {
-      contacts: data.contacts || [],
+      contacts: [],
       filter: ''
     };
+  }
+
+  componentDidMount() {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      this.setState({ contacts: JSON.parse(storedContacts) });
+    } else {
+      this.setState({ contacts: data.contacts || [] });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
 
   handleAddContact = (newContact) => {
     const { contacts } = this.state;
     const isContactExist = contacts.some((contact) => contact.name === newContact.name);
     isContactExist 
-      ? alert(`${newContact.name} is already in contacts`)
+      ? alert(`${newContact.name} ya está en la lista de contactos`)
       : this.setState({
         contacts: [...contacts, { ...newContact, id: `id-${contacts.length + 1}` }]
       });
@@ -45,9 +58,9 @@ class App extends Component {
 
     return (
       <div className="phonebox">
-        <h1>PhoneBook ☎</h1>
+        <h1>Agenda telefónica ☎</h1>
         <ContactForm onAddContact={this.handleAddContact} />
-        <h2>Contacts</h2>
+        <h2>Contactos</h2>
         <SearchFilter value={filter} onChange={this.handleFilterChange} />
         <ContactList contacts={filteredContacts} onDeleteContact={this.handleDeleteContact} />
       </div>
