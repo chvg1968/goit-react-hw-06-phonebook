@@ -1,30 +1,32 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
-class ContactList extends Component {
-  handleDeleteClick = (id) => {
-    this.props.onDeleteContact(id);
-  };
+function ContactList({ contacts, onDeleteContact }) {
+const [contactList, setContactList] = useState(contacts);
 
-  render() {
-    const { contacts } = this.props;
+useEffect(() => {
+setContactList(contacts);
+}, [contacts]);
 
-    return (
-      <ul>
-        {contacts.map((contact) => (
-          <li key={contact.id}>
-            {contact.name} : {contact.number}
-            <button onClick={() => this.handleDeleteClick(contact.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    );
-  }
+const handleDeleteClick = (id) => {
+onDeleteContact(id);
+};
+
+return (
+<ul>
+{contactList.map((contact) => (
+<li key={contact.id}>
+{contact.name} : {contact.number}
+<button onClick={() => handleDeleteClick(contact.id)}>Delete</button>
+</li>
+))}
+</ul>
+);
 }
 
 ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
+contacts: PropTypes.array.isRequired,
+onDeleteContact: PropTypes.func.isRequired,
 };
 
 export default ContactList;
