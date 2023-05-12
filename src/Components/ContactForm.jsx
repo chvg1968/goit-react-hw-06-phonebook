@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+
 class ContactForm extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +72,7 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
+onAddContact: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
