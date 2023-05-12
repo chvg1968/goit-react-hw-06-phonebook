@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
@@ -6,17 +6,24 @@ class ContactForm extends Component {
     super(props);
     this.state = {
       name: '',
-      number: ''
+      number: '',
     };
+    this.nameInputRef = React.createRef();
+    this.numberInputRef = React.createRef();
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { name, number } = this.state;
-    const { onAddContact } = this.props;
-    onAddContact({ name, number });
+    this.props.onAddContact({ name, number });
     this.setState({ name: '', number: '' });
-  }
+    this.nameInputRef.current.focus();
+  };
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
   render() {
     const { name, number } = this.state;
@@ -28,11 +35,13 @@ class ContactForm extends Component {
         <input
           type="text"
           placeholder="Name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          pattern="^[a-zA-Zа-rА-R]+(([' -][a-zA-Zа-rА-R ])?[a-zA-Zа-rА-R])$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          name="name"
           value={name}
-          onChange={(event) => this.setState({ name: event.target.value })}
+          onChange={this.handleChange}
+          ref={this.nameInputRef}
         />
         <label>
           Number:
@@ -40,11 +49,20 @@ class ContactForm extends Component {
         <input
           type="text"
           placeholder="Phone Number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          pattern="+?\d{1,4}?[-.\s]?
+          ?
+          \d
+          1
+          ,
+          3
+          ?
+          ?\d1,3??[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          name="number"
           value={number}
-          onChange={(event) => this.setState({ number: event.target.value })}
+          onChange={this.handleChange}
+          ref={this.numberInputRef}
         />
         <button type="submit">Add Contact</button>
       </form>
