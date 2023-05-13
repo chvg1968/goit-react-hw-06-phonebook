@@ -63,7 +63,15 @@ class App extends Component {
       visibleContacts = allContacts;
     }
 
-    return visibleContacts;
+    // Remove any duplicate contacts
+    const uniqueContacts = [];
+    visibleContacts.forEach((contact) => {
+      if (!uniqueContacts.some((c) => c.name === contact.name)) {
+        uniqueContacts.push(contact);
+      }
+    });
+
+    return uniqueContacts;
   };
 
   render() {
@@ -73,7 +81,7 @@ class App extends Component {
     return (
       <div className="phonebox">
         <h1>Phonebook ☎</h1>
-        <Storage />
+        {/* <Storage /> */}
         <ContactForm onAddContact={this.handleAddContact} />
         <h2>Contacts</h2>
         <SearchFilter filter={filter} onChange={this.handleFilterChange} />
