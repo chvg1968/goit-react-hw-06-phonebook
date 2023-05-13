@@ -96,7 +96,6 @@ class App extends Component {
 
 App.propTypes = {
   allContacts: PropTypes.array,
-  filter: PropTypes.string.isRequired,
 };
 
 export default App;
