@@ -1,22 +1,30 @@
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
-function SearchFilter(props) {
-  const [value, setValue] = useState(props.value);
+class SearchFilter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    props.onChange(event.target.value);
-  };
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    this.props.onChange(event.target.value);
+  }
 
-  return (
-    <input
-      type="text"
-      placeholder="Find contacts"
-      value={value}
-      onChange={handleChange}
-    />
-  );
+  render() {
+    return (
+      <input
+        type="text"
+        placeholder="Find contacts"
+        value={this.state.value}
+        onChange={this.handleChange}
+      />
+    );
+  }
 }
 
 SearchFilter.propTypes = {
