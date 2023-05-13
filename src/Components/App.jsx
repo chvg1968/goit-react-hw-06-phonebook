@@ -10,11 +10,11 @@ import '../App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+
     const storedContacts = localStorage.getItem('contacts');
     this.state = {
       allContacts: storedContacts ? JSON.parse(storedContacts) : data.contacts || [],
-      filteredContacts: [],
-      filter: ''
+      filter: '',
     };
   }
 
@@ -24,30 +24,19 @@ class App extends Component {
     }
   }
 
-
-  updateFilteredContacts = () => {
-    const { allContacts, filter } = this.props;
-
-    const filteredContacts = allContacts.filter((contact) => {
-      const name = contact.name.toLowerCase();
-      return name.includes(filter.toLowerCase());
-    });
-
-    this.setState({ filteredContacts });
-  };
-
   handleAddContact = (newContact) => {
     const isContactExist = this.state.allContacts.some(
       (contact) => contact.name === newContact.name
     );
+
     if (isContactExist) {
-      alert(`${newContact.name} ya está en la lista de contactos`);
+      alert(`${newContact.name} is already in the contact list`);
     } else {
       const allContacts = [
         ...this.state.allContacts,
         { ...newContact, id: `id-${this.state.allContacts.length + 1}` },
       ];
-      this.setState({ allContacts, filteredContacts: allContacts });
+      this.setState({ allContacts });
     }
   };
 
@@ -55,31 +44,42 @@ class App extends Component {
     const allContacts = this.state.allContacts.filter(
       (contact) => contact.id !== contactId
     );
-    const filteredContacts = this.state.filteredContacts.filter(
-      (contact) => contact.id !== contactId
-    );
-    this.setState({ allContacts, filteredContacts });
+
+    this.setState({ allContacts });
   };
 
   handleFilterChange = (filter) => {
-    this.props.onFilterChange(filter);
-    this.updateFilteredContacts();
+    this.setState({ filter });
+  };
+
+  getVisibleContacts = () => {
+    const { allContacts, filter } = this.state;
+    let visibleContacts = [];
+
+    if (filter !== '') {
+      const filterRegex = new RegExp(filter, 'i');
+      visibleContacts = allContacts.filter((contact) => filterRegex.test(contact.name));
+    } else {
+      visibleContacts = allContacts;
+    }
+
+    return visibleContacts;
   };
 
   render() {
-    const { allContacts, filteredContacts, filter } = this.state;
+    const { filter } = this.state;
+    const visibleContacts = this.getVisibleContacts();
 
     return (
       <div className="phonebox">
-        <h1>Agenda telefónica ☎</h1>
+        <h1>Phonebook ☎</h1>
         <Storage />
         <ContactForm onAddContact={this.handleAddContact} />
-        <h2>Contactos</h2>
-        <SearchFilter value={filter} onFilterChange={this.handleFilterChange} />
+        <h2>Contacts</h2>
+        <SearchFilter filter={filter} onChange={this.handleFilterChange} />
         <ContactList
-          contacts={allContacts}
+          contacts={visibleContacts}
           onDeleteContact={this.handleDeleteContact}
-          filteredContacts={filteredContacts}
         />
       </div>
     );
@@ -87,21 +87,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
+  allContacts: PropTypes.array,
   filter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-  allContacts:PropTypes.array.isRequired
-};
-
-App.defaultProps = {
-  contacts: [],
-  filter: '',
 };
 
 export default App;

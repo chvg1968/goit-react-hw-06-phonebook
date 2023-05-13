@@ -1,35 +1,24 @@
-import { Component } from 'react';
+import { Component } from "react";
 import PropTypes from 'prop-types';
 
 class SearchFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-    this.props.onChange(event.target.value);
-  }
-
   render() {
+    const { filter, onChange } = this.props;
     return (
-      <input
-        type="text"
-        placeholder="Find contacts"
-        value={this.state.value}
-        onChange={this.handleChange}
+      <input 
+       type="text"
+       name="filter"
+       value={filter}
+       onChange={({target}) => onChange(target.value)}
+       placeholder="Find Contacts"
       />
     );
   }
 }
 
 SearchFilter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+  filter: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
+}
 
 export default SearchFilter;
