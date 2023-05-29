@@ -1,42 +1,25 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact} from '../redux/contactSlice';
 
-class Storage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      usedStorage: 0,
-      totalStorage: 1000,
-    };
-  }
+function Storage() {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts);
 
-  componentDidMount() {
-    this.updateStorageUsage();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.usedStorage !== this.state.usedStorage) {
-      this.updateStorageUsage();
+  useEffect(() => {
+    // Obtener los contactos almacenados previamente en el localStorage
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      dispatch(addContact(JSON.parse(storedContacts)));
     }
-  }
+  }, [dispatch]);
 
-  updateStorageUsage = () => {
-    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-    const usedStorage = JSON.stringify(contacts).length;
-    this.setState({ usedStorage });
-  };
+  useEffect(() => {
+    // Actualizar el localStorage cuando se agreguen o eliminen contactos
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  render() {
-    const { usedStorage, totalStorage } = this.state;
-    const percentageUsed = ((usedStorage / totalStorage) * 100).toFixed(2);
-
-    return (
-      <div className="storage">
-        <div className="storage-bar" style={{ width: `${percentageUsed}%` }}>
-          {percentageUsed}% used
-        </div>
-      </div>
-    );
-  }
+  return null; // El componente Storage no tiene representación visual, por lo que se retorna null
 }
 
 export default Storage;

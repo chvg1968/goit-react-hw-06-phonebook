@@ -1,24 +1,19 @@
-import { Component } from "react";
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../redux/contactSlice';
 
-class SearchFilter extends Component {
-  render() {
-    const { filter, onChange } = this.props;
-    return (
-      <input 
-       type="text"
-       name="filter"
-       value={filter}
-       onChange={({target}) => onChange(target.value)}
-       placeholder="Find Contacts"
-      />
-    );
-  }
-}
+const SearchFilter = () => {
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
 
-SearchFilter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  return (
+    <input
+      type="text"
+      name="filter"
+      value={filter}
+      onChange={({ target }) => dispatch(setFilter(target.value))}
+      placeholder="Buscar contactos"
+    />
+  );
 }
 
 export default SearchFilter;

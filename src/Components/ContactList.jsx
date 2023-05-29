@@ -1,58 +1,37 @@
-import { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+import { deleteContact } from '../redux/contactSlice';
 
-class ContactList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contactList:[],
-    };
-  }
-
-  componentDidMount() {
-    this.updateContactList();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.contacts !== this.props.contacts) {
-      this.updateContactList();
-    }
-  }
-
-  updateContactList() {
-    const { contacts } = this.props;
-    const contactList = contacts.map((contact) => {
-      return contact.id ? contact : { ...contact, id: nanoid() };
-    });
-    this.setState({ contactList });
-  }
-
-  handleDeleteClick = (id) => {
-    const updatedContactList = this.state.contactList.filter((contact) => contact.id !== id);
-    this.setState({ contactList: updatedContactList });
-    this.props.onDeleteContact(id);
-  };
-  
-
-  render() {
-    const { contactList } = this.state;
-    return (
-      <ul>
-        {contactList.map((contact) => (
-          <li key={nanoid()}>
-            {contact.name} : {contact.number}
-            <button onClick={() => this.handleDeleteClick(contact.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    );
-  } 
+function ContactList({ contacts, handleDeleteClick }) {
+  return (
+    <ul>
+      {contacts.map((contact) => (
+        <li key={contact.id}>
+          {contact.name}: {contact.number}
+          <button onClick={() => handleDeleteClick(contact.id)}>Eliminar</button>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
-export default ContactList;
+const mapStateToProps = (state) => ({
+  contacts: state.contacts,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleDeleteClick: (id) => dispatch(deleteContact(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

@@ -11,11 +11,15 @@
         "deploy": "gh-pages -d dist"
     },
     "dependencies": {
+        "@redux-devtools/extension": "^3.2.5",
+        "@reduxjs/toolkit": "^1.9.5",
         "fuse.js": "^6.6.2",
         "nanoid": "^4.0.2",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-redux": "^8.0.5",
+        "redux": "^4.2.1"
     },
     "devDependencies": {
         "@types/react": "^18.0.28",
