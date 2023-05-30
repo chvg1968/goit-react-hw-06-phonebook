@@ -1,37 +1,21 @@
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../redux/contactSlice';
+import { nanoid } from 'nanoid';
 
-function ContactList({ contacts, handleDeleteClick }) {
+function ContactList() {
+  const contacts = useSelector((state) => state.contacts);
+  const dispatch = useDispatch();
+
   return (
     <ul>
       {contacts.map((contact) => (
-        <li key={contact.id}>
+        <li key={nanoid()}>
           {contact.name}: {contact.number}
-          <button onClick={() => handleDeleteClick(contact.id)}>Eliminar</button>
+          <button onClick={() => dispatch(deleteContact(contact.id))}>Delete</button>
         </li>
       ))}
     </ul>
   );
 }
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  handleDeleteClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  contacts: state.contacts,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleDeleteClick: (id) => dispatch(deleteContact(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;

@@ -1,4 +1,4 @@
-import { contactSlice } from '../contactSlice';
+import contactSlice  from '../contactSlice';
 
 const rootReducer = contactSlice.reducer;
 
