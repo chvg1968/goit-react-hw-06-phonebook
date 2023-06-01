@@ -5,7 +5,7 @@ import '../App.css';
 
 const App = () => {
 
-  return (
+return (
     <div className="phonebox">
       <h1>Phonebook ☎</h1>
       <ContactForm  />
