@@ -1,10 +1,9 @@
+import { useDispatch } from 'react-redux';
+import { addContacts } from '../redux/contactSlice';
 import { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addContact } from '../redux/contactSlice';
 
-function ContactForm(props) {
-  const { onAddContact } = props;
+function ContactForm() {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const nameInputRef = useRef(null);
@@ -12,7 +11,7 @@ function ContactForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onAddContact({ name, number });
+    dispatch(addContacts({ name, number }));
     setName('');
     setNumber('');
     nameInputRef.current.focus();
@@ -56,18 +55,10 @@ function ContactForm(props) {
         value={number}
         onChange={handleChange}
         ref={numberInputRef}
-      />
-      <button type="submit">Add Contact</button>
-    </form>
-  );
-}
-
-ContactForm.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onAddContact: (newContact) => dispatch(addContact(newContact)),
-});
-
-export default connect(null, mapDispatchToProps)(ContactForm);
+        />
+        <button type="submit">Add Contact</button>
+        </form>
+        );
+        }
+        
+        export default ContactForm;
