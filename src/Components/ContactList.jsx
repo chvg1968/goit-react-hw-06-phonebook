@@ -21,9 +21,9 @@ const ContactList = () => {
   console.log(visibleContacts);
 
     return (
-      <ul>
+      <ul className="contact-lists">
         {visibleContacts.map((contact) => (
-          <li key={contact.id}>
+          <li className="contact" key={contact.id}>
             {contact.name} : {contact.number}
             <button onClick={() => dispatch(deleteContacts(contact.id))}>Delete</button>
           </li>
