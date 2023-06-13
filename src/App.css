@@ -114,6 +114,8 @@ li button:hover {
         width: 80%;
     }
 
+    
+
     .contact-lists{
         display: flex;
         flex-direction: column;
@@ -136,5 +138,14 @@ li button:hover {
 
     h1,h2 {
         font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .phonebox {
+        display:flex;
+        flex-wrap: wrap;
+        width: 90%;
+        font-size: 0.75em;
     }
 }
