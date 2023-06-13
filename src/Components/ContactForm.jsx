@@ -4,7 +4,7 @@ import { selectContacts} from '../redux/selectors';
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2'
-
+//función que ayuda a crear el formulario
 function ContactForm() {
 
   const contacts = useSelector(selectContacts);
