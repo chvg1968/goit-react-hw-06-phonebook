@@ -1,13 +1,11 @@
-/* Increase the font size and add some letter spacing to the headings */
 h1,
 h2 {
-    font-size: 3.6em;
+    font-size: 3.2em;
     line-height: 1.1;
     color: gray;
-    letter-spacing: 0.05em;
 }
 
-/* Add some padding and adjust the background color of the phonebox */
+
 .phonebox {
     margin: 0 auto;
     transform: translateY(15%);
@@ -17,56 +15,50 @@ h2 {
     justify-content: center;
     width: 500px;
     height: auto;
-    background-color: #fff;
-    border-radius: 1rem; /* increase the border radius to make it more rounded */
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    background-color: #f0f0f0;
+    border-radius: .3125rem;
+    box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.3);
     text-align: center;
-    padding: 2rem; /* add some padding to increase the spacing inside the phonebox */
 }
 
-/* Adjust the font size and color of the form elements */
 .form {
     display: flex;
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    gap: 1.5rem; /* increase the gap between form elements */
-    margin-bottom: 2rem; /* add more margin to separate the form from the contact list */
-    color: #333; /* change the form text color to be more legible */
+    gap: .625rem;
+    margin-bottom: 1.25rem;
+    color: black;
 }
 
 .name,
 .phone {
     display: flex;
-    gap: 1rem;
+    gap: .625rem;
 }
 
-/* Style the submit button */
 button {
     display: inline-block;
-    margin: 1em 4em;
-    padding: 1rem 2rem; /* increase the padding to make the button more prominent */
-    font-size: 1.2rem; /* increase the font size of the button text */
+    margin: 0.8em;
+    padding: 1rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #fff;
     background-color: #007bff;
     border: none;
-    border-radius: 0.5rem; /* increase the border radius to make it more rounded */
+    border-radius: .25rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Increase the size of the button on hover */
+
 button:hover {
     background-color: #0062cc;
-    transform: scale(1.1);
 }
 
-/* Add some margin and padding to the contact list */
 ul {
     list-style: none;
     padding: 0;
-    margin: 2rem 0; /* add some margin to separate the contact list from the form */
 }
 
 li {
@@ -74,97 +66,75 @@ li {
     display: flex;
     align-items: center;
     color: gray;
-    padding: 1rem; /* add some padding to the list items */
-    background-color: #f0f0f0; /* add a light background color to the list items */
-    border-radius: 0.5rem; /* increase the border radius to make it more rounded */
 }
 
-/* Style the delete button */
 li button {
     position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%); /* center the button vertically */
+    top: 0;
+    right: -5em;
     background-color: #dc3545;
     color: #fff;
     border: none;
-    border-radius: 0.5rem; /* increase the border radius to make it more rounded */
-    padding: 0.5rem 0.5rem; /* increase the padding to make the button more prominent */
+    border-radius: .25rem;
+    padding: 0.4rem;
     cursor: pointer;
 }
 
-/* Increase the size of the delete button on hover */
 li button:hover {
     background-color: #c82333;
-    transform: translateY(-50%) scale(1.1); /* add a scale transform on hover */
 }
 
-/* Add some margin to the contact list items */
-.contact {
-    position:relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0.5rem 0;
-}
 
-/* Adjust the position of the delete button on smaller screens */
-@media screen and (max-width: 576px) { 
-    .phonebox { 
-        width: 80%; padding: 0.5rem; 
+@media screen and (max-width: 1024px) {
+    .phonebox {
+        display:flex;
+        flex-wrap: wrap;
+        width: 50%;
     }
 }
 
-/* Adjust the layout of the contact list on smaller screens */
-.contact-lists{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 1rem; /* add some margin to separate the contact list from the form */
+@media screen and (min-width: 768px) and (max-width: 920px) {
+    .phonebox {
+        display:flex;
+        flex-wrap: wrap;
+        width: 60%;
+    }
 }
 
-.contact {
-    position:relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem 0;
+@media screen and (max-width: 767px) {
+    .phonebox {
+        display:flex;
+        flex-wrap: wrap;
+        width: 70%;
+    }
 }
 
-/* Adjust the position of the delete button on smaller screens */
-.contact button {
-    position:relative;
-    top: 0;
-    right: 0;
-    margin-top: 1rem; /* add some margin to separate the delete button from the contact details */
-}
-
-/* Adjust the font size of the headings on smaller screens */
-h1,h2 {
-    font-size: 2.4em;
-}
-
-/* Adjust the font size of the form elements on smaller screens */
-.form {
-    font-size: 1.1rem;
-}
-
-/* Adjust the layout of the form elements on smaller screens */
 @media screen and (max-width: 576px) {
-    .form {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
+    .phonebox {
+        width: 80%;
     }
 
-    .name,
-    .phone {
+    .contact-lists{
+        display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 1rem;
-        width: 100%;
+    }
+    .contact {
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .contact button {
+        position:relative;
+        top: -1em;
+        right: 0.5em;
+    }
+
+    h1,h2 {
+        font-size: 2em;
     }
 }
